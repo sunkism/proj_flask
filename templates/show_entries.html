@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if sessionlogged_in %}
+    <form action="{{url_for('add_entry')}}" method=post class=add-entry>
+     <dl>
+      <dt>Title:
+      <dd><input type=text size=30 name=title>
+      <dt>VideoID:
+      <dd><textarea name=videoid rows=5 cols=40></textarea>
+      <dd><input type=submin value=Share>
+     </dl>
+    </form>
+  {% endif %}
+  <ul class=entries>
+  {% for entry in entries %}
+   <li><h2>{{ entry.title }}</h2>
+   <iframe class="youtube-player" type="text/html" width="640" height="385"
+     src={{ entry.videoid|safe }} frameborder="0">
+   </iframe>
+  {% else %}
+   <li><em>Unbelievable. no entries here so far</em>
+  {% endfor %}
+  </ul>
+{% endblock %}
